@@ -9,7 +9,7 @@
   inherit (nixpkgs) lib;
   mkSystem = lib.nixosSystem;
 
-  home = ../homes
+  home = ../homes;
 
   # define a sharedArgs variable that we can simply inherit
   # across all hosts to avoid traversing the file whenever
