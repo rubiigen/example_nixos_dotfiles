@@ -1,8 +1,8 @@
 {
-  description = "A simple nixOS + home-manager setup to get you off your feet with nixOS!";
+  description = "NixOS + standalone home-manager config flakes to get you started!";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
   };
 
   outputs = {nixpkgs, ...}: let
@@ -15,11 +15,19 @@
     ];
   in {
     templates = {
-      default = {
+      minimal = {
         description = ''
-          A very simple beginner nixos configuration with non-standalone home-manager
+          Minimal flake - contains only the configs.
+          Contains the bare minimum to migrate your existing legacy configs to flakes.
         '';
-        path = ./default;
+        path = ./minimal;
+      };
+      standard = {
+        description = ''
+          Standard flake - augmented with boilerplate for custom packages, overlays, and reusable modules.
+          Perfect migration path for when you want to dive a little deeper.
+        '';
+        path = ./standard;
       };
     };
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
