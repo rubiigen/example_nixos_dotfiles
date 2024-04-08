@@ -24,9 +24,9 @@
 
 # **How** do I use it?
 + initalise a new repo (```git init *folder_name*```) cd into *folder_name* and run ```nix flake init github:rubiigen/example_nixos_dotfiles```
-+ first off we have to rename some folders. rename hosts/example_host to hosts/*your_hostname_here* and homes/username to homes/*your_username_here*
++ first off we have to rename some folders. rename hosts/example_host to hosts/*your_hostname_here* (e.g hosts/Canis) and homes/username to homes/*your_username_here* (e.g homes/alyx)
 + edit hosts/default.nix to replace example_host with your hostname, edit hosts/*your_hostname_here*/configuration.nix to change hostname too, also change users.users.username according to your username.
-+ edit homes/default.nix to change username = ./username to fit your username and homes/username/default.nix to replace username with yours
++ edit homes/default.nix to change username = ./username to fit your username (e.g alyx = ./alyx) and homes/username/default.nix to replace username with yours
 + lastly, cp /etc/nixos/hardware-configuration.nix which you shouldve generated to hosts/*your_hostname_here*
 + now go wild! 
 + once you've made all your modifications, rebuild using our new flake using ```nixos-rebuild switch --flake .#hostName --use-remote-sudo``` subbing in your hostname
