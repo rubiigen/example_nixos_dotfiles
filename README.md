@@ -29,3 +29,5 @@
 + edit homes/default.nix to change username = ./username to fit your username and homes/username/default.nix to replace username with yours
 + lastly, cp /etc/nixos/hardware-configuration.nix which you shouldve generated to hosts/*your_hostname_here*
 + now go wild! 
++ once you've made all your modifications, rebuild using our new flake using ```nixos-rebuild switch --flake .#hostName --use-remote-sudo``` subbing in your hostname
++ for extra points, alias that command to a simple one such as 'rebuild'
