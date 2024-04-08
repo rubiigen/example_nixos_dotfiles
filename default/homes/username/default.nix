@@ -5,9 +5,12 @@
   ...
 }: {
   imports = [
-    ./packages.nix # home.packages and similar stuff
-    ./programs.nix # programs.<programName>.enable
-    ./git.nix
+    ../../common/arrpc.nix
+    ../../common/packages.nix # home.packages and similar stuff
+    ../../common/programs.nix # programs.<programName>.enable
+    ../../common/gita.nix
+    ../../common/nvim-flake.nix
+    ../../common/ags
   ];
 
   home = {
