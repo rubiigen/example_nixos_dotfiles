@@ -23,7 +23,7 @@
 + floppydisk - have pinched formatting ideas from before, refactored their dotfiles using an earlier version of this example flake that wasn't published
 
 # **How** do I use it?
-+ initalise a new repo (```git init *folder_name*```) cd into *folder_name* and ```run nix flake init github:rubiigen/example_nixos_dotfiles```
++ initalise a new repo (```git init *folder_name*```) cd into *folder_name* and run ```nix flake init github:rubiigen/example_nixos_dotfiles```
 + first off, in hosts you will want to move the example_host folder to a folder called your hostname, this is for ease
 + now edit hosts/default.nix and change every occurence of example_host with your hostname - case sensitivity matters for both of these stages
 + now edit hosts/hostname/configuration.nix and edit the occurence of example_host with your hostname, also edit users.users.username replacing username with yours
