@@ -24,11 +24,8 @@
 
 # **How** do I use it?
 + initalise a new repo (```git init *folder_name*```) cd into *folder_name* and run ```nix flake init github:rubiigen/example_nixos_dotfiles```
-+ first off, in hosts you will want to move the example_host folder to a folder called your hostname, this is for ease
-+ now edit hosts/default.nix and change every occurence of example_host with your hostname - case sensitivity matters for both of these stages
-+ now edit hosts/hostname/configuration.nix and edit the occurence of example_host with your hostname, also edit users.users.username replacing username with yours
-+ next cp /etc/nixos/hardware-configuration.nix which you shouldve generated to hosts/hostname
-+ now move homes/username to a folder with your username, again for ease
-+ edit the username = ./username line in homes/default.nix to correspond with yours
-+ lastly edit the homes/**your_username**/default.nix to replace instances with username with yours
++ first off we have to rename some folders. rename hosts/example_host to hosts/*your_hostname_here* and homes/username to homes/*your_username_here*
++ edit hosts/default.nix to replace example_host with your hostname, edit hosts/*your_hostname_here*/configuration.nix to change hostname too, also change users.users.username according to your username.
++ edit homes/default.nix to change username = ./username to fit your username and homes/username/default.nix to replace username with yours
++ lastly, cp /etc/nixos/hardware-configuration.nix which you shouldve generated to hosts/*your_hostname_here*
 + now go wild! 
