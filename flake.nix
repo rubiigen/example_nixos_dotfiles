@@ -1,35 +1,59 @@
 {
-  description = "NixOS + standalone home-manager config flakes to get you started!";
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-  };
-
-  outputs = {nixpkgs, ...}: let
+  description = "Your new nix config";
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  }: let
     forAllSystems = nixpkgs.lib.genAttrs [
-      "aarch64-linux"
-      "i686-linux"
+      #"aarch64-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
+      #"i686-linux"
+      #"aarch64-darwin"
+      #"x86_64-darwin"
     ];
   in {
-    templates = {
-      minimal = {
-        description = ''
-          Minimal flake - contains only the configs.
-          Contains the bare minimum to migrate your existing legacy configs to flakes.
-        '';
-        path = ./minimal;
-      };
-      standard = {
-        description = ''
-          Standard flake - augmented with boilerplate for custom packages, overlays, and reusable modules.
-          Perfect migration path for when you want to dive a little deeper.
-        '';
-        path = ./standard;
-      };
-    };
+    # Entrypoint for NixOS configurations
+    nixosConfigurations = import ./hosts {inherit self;};
+
+    # devshells that are provided by this flake
+    # adding more packages to buildInputs makes them available
+    # while inside the devshell - enetered via `nix develop`
+    devShells = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            alejandra # opionated Nix formatter
+
+            # example of bootstrapping self-contained shell
+            # applications for your flake
+            # this adds an `update` command to your shell
+            # which'll update all inputs and commit
+            (writeShellApplication {
+              name = "update";
+              text = ''
+                nix flake update && git commit flake.lock -m "flake: bump inputs"
+              '';
+            })
+          ];
+        };
+      }
+    );
+
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+  };
+
+  inputs = {
+    # Nixpkgs (unstable)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Home manager
+    home-manager.url = "github:nix-community/home-manager/";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nixos-hardware
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 }
