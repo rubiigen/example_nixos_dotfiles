@@ -9,9 +9,10 @@
 }: {
   services.xserver = {
     enable = true;
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
   };
+
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   hardware.opengl = {
     enable = true;
